@@ -1,6 +1,7 @@
 # enigma
 Simulation of the Enigma Machine in Python
 
+<img src=".Resourses/enigma_machine.jpg" alt="enigma" width="200"/>
 ![enigma](./Resourses/enigma_machine.jpg =100x)
 
 ## Research
