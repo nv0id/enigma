@@ -1,11 +1,13 @@
 # enigma
 Simulation of the Enigma Machine in Python
 
+![enigma](./Resourses/enigma_machine.jpg =100x)
+
 ## Research
 
 ### Rotors
 
-![Rotor_eplodedview](./Resourses/Rotor_eploded.jpg)
+![Rotor_eplodedview](./Resourses/Rotor_eploded.jpg =100x)
 
 The rotor simply jumbles the letters of the aplphabet through criss-cross wiring. There were 8 different rotors that could swap out.
 
