@@ -1,12 +1,27 @@
-rotor_i = "EKMFLGDQVZNTOWYHXUSPAIBRCJ"
+from collections import defaultdict
 
-def create_rotor(rotor,number):
-    rotor_finished = {}
-    for n,i in emumerate(rotor):
-        rotor_finished[n].append(ord(i)-97)
+def create_rotors(rotors):
+    rotor_dictionaries = []
+    for j in range(len(rotors)):
+        rotor_finished = {}
+        for n,i in enumerate(rotors[j]):
+            rotor_finished[n].append(ord(i)-65)
+        rotor_dictionaries.append(rotor_finished)
+    return rotor_dictionaries
 
 
 
 if __name__ == "__main__":
-        # execute only if run as a script
-        main()
+    # execute only if run as a script
+    #main()
+    rotor_strings = ["EKMFLGDQVZNTOWYHXUSPAIBRCJ", "AJDKSIRUXBLHWTMCQGZNPYFVOE", 
+                     "BDFHJLCPRTXVZNYEIWGAKMUSQO", "ESOVPZJAYQUIRHXLNFTGKDCMWB", 
+                     "VZBRGITYUPSDNHLXAWMJQOFECK", "JPGVOUMFYQBENHZRDKASXLICTW", 
+                     "NZJHGRCXMYSWBOUFAIVLPEKQDT", "FKQHTLXOCBJSPDZRAMEWNIUYGV"]
+
+    rotors = create_rotors(rotor_strings)
+    for i in range(len(rotors)):
+        print(rotors[i])
+        
+        
+            
