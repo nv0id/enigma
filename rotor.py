@@ -4,8 +4,8 @@ def create_rotors(rotors):
     rotor_dictionaries = []
     for j in range(len(rotors)):
         rotor_finished = {}
-        for n,i in enumerate(rotors[j]):
-            rotor_finished[n].append(ord(i)-65)
+        for i in enumerate(rotors[j]):
+            rotor_finished[i] = ord(i)-65
         rotor_dictionaries.append(rotor_finished)
     return rotor_dictionaries
 
