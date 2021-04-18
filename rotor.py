@@ -5,7 +5,7 @@ def create_rotors(rotor_strings):
     for j in rotor_strings:
         rotor_finished = {}
         for i in enumerate(j):
-            rotor_finished[i[0]] = ord(i[1])-97
+            rotor_finished[i[0]+1] = ord(i[1])-96
         rotor_dictionaries.append(rotor_finished)
     return rotor_dictionaries
 
@@ -17,14 +17,14 @@ def choose_rotor():
     three = int(input("Thrid Rotor: "))
     #ptr3  = int(input("Starting offest: "))
     choices = [one, two, three]
-    #pointers = [ptr1, ptr2, ptr3]
+    #offset = [ptr1, ptr2, ptr3]
 
     #choices  = [1, 1, 1]
-    pointers = [0, 0, 0]
+    offset = [0, 0, 0]
 
-    return choices, pointers
+    return choices, offset
 
-def encode(rotors, pointers, message):
+def encode(rotors, offset, message, notches):
 
     encoded_message = ""
     for i in rotors:
@@ -32,66 +32,64 @@ def encode(rotors, pointers, message):
 
     for i in message:
         print(i)
-        char_val = ord(i)-97
+        char_val = ord(i)-96
         print("OG: ", char_val)
 
-        char_val = rotors[0].get(char_val+pointers[0])
-        pointers = inc_ptr_0(pointers)
+        char_val = rotors[0].get(char_val+offset[0])
         print("1st:", char_val)
 
-        char_val = rotors[1].get(char_val+pointers[1])
-        pointers = inc_ptr_1(pointers)
+        char_val = rotors[1].get(char_val+offset[1])
         print("2nd: ", char_val)
 
-        char_val = rotors[2].get(char_val+pointers[2])
-        pointers = inc_ptr_2(pointers)
+        char_val = rotors[2].get(char_val+offset[2])
         print("3rd: ", char_val, "\n")
 
-        encoded_message += chr(char_val+97)
+
+        offset = inc_ptr_0(offset, notches)
+        encoded_message += chr(char_val+96)
 
     return encoded_message
 
         
-def inc_ptr_0(pointers):
-    pointers[0] += 1
-    if pointers[0] == 26:
-        pointers[0] = 0
-        inc_ptr_1(pointers)
+def inc_ptr_0(offset, notches):
+    #two check: 1) if notch +1 to next rotor in sequence
+    #           2) if on 26 next value to 27.
 
-    return pointers
 
-def inc_ptr_1(pointers):
-    pointers[1] += 1
-    if pointers[1] == 26:
-        pointers[1] = 0
-        inc_ptr_2(pointers)
 
-    return pointers
 
-def inc_ptr_2(pointers):
-    pointers[2] +=1
-    if pointers[2] == 26:
-        pointers[2] = 0
-    
-    return pointers
+
+    offset[0] += 1
+    if offset[0] == 27:
+        offset[0] = 0
+        offset[1] += 1
+        if offset[1] == 27:
+            offset[1] = 0
+            offset[2] +=1
+            if offset[2] == 27:
+                offset[2] = 0
+
+    return offset
 
 if __name__ == "__main__":
     # execute only if run as a script
     #main()
-
+            # I turn 17, II turn 5, III turn 22, IV turn 10,  V turn  26,
     rotor_strings = ["ekmflgdqvzntowyhxuspaibrcj", "ajdksiruxblhwtmcqgznpyfvoe", 
                      "bdfhjlcprtxvznyeiwgakmusqo", "esovpzjayquirhxlnftgkdcmwb", 
-                     "vzbrgityupsdnhlxawmjqofeck", "jpgvoumfyqbenhzrdkasxlictw", 
-                     "nzjhgrcxmyswboufaivlpekqdt", "fkqhtlxocbjspdzramewniuygv"]
+                     "vzbrgityupsdnhlxawmjqofeck"]
+                     # "jpgvoumfyqbenhzrdkasxlictw", "nzjhgrcxmyswboufaivlpekqdt", "fkqhtlxocbjspdzramewniuygv"]
+    rotor_notches = [17, 5, 22, 10, 26]
 
     rotors = create_rotors(rotor_strings)
 
     choices = choose_rotor()
     three_rotors = [rotors[choices[0][0]-1], rotors[choices[0][1]-1], rotors[choices[0][2]-1]]
+    three_notches = [rotor_notches[choices[0][0]-1], rotor_notches[choices[0][1]-1], rotor_notches[choices[0][2]-1]]
 
     message = input("Enter Message: ").lower()
 
-    print(encode(three_rotors, choices[1], message))
+    print(encode(three_rotors, choices[1], message, three_notches))
 
     
 
