@@ -26,15 +26,21 @@ def encode(rotors, offset, notches, message, reflector):
     print("\n")
     
     for i in message:
+        print("OG: ", i )
         rotors = move_rotors(rotors, notches)
         char_val = ord(i)-97
         for j in rotors:
+            print("Fro:", chr(char_val+97))
             char_val = ord(j[char_val])-97
+            print("Chr:", chr(char_val+97))
+            print("\n")
         
         char_val = ord(reflector[char_val])-97
+        print("ChR:", chr(char_val+97))
         
         for j in reversed(rotors):
             char_val = ord(j[char_val])-97
+            print("Chr:", chr(char_val+97))
 
         print("\nNext")
         for zaxs in rotors:
