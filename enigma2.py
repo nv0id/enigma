@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 def choose_rotor():
     #one   = int(input("Left Rotor: "))
     #ptr1  = int(input("Left Ring setting: "))
