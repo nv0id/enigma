@@ -64,6 +64,13 @@ def move_rotors(rotors, notches):
 
     return rotors
 
+# AS BI EF GJ HX LZ NO PW QT UV
+def plugboard(setting,input_letter):
+    setting = setting.split(" ")
+    for i in setting:
+        if setting[i][0] == input_letter.upper():
+            return setting[i][1].lower()
+
 
 if __name__ == "__main__":
     # execute only if run as a script
