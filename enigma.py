@@ -10,7 +10,8 @@ def choose_rotor():
     #choices = [one, two, three]
     #offset = [ptr1, ptr2, ptr3]
 
-    choices  = [1, 2, 3]
+    # fastest to slowest
+    choices  = [3, 2, 1]
     offset = [0, 0, 0]
 
     return choices, offset
@@ -23,34 +24,37 @@ def encode(rotors, offset, notches, message, reflector):
     for n,i in enumerate(rotors):
         rotors[n] = i[offset[n]:]+i[:offset[n]]
     
-    print("\n")
+    
     
     for i in message:
-        print("OG: ", i )
-        rotors = move_rotors(rotors, notches)
-        char_val = ord(i)-97
-        for j in rotors:
-            print("Fro:", chr(char_val+97))
-            char_val = ord(j[char_val])-97
-            print("Chr:", chr(char_val+97))
-            print("\n")
         
-        char_val = ord(reflector[char_val])-97
-        print("ChR:", chr(char_val+97))
-        
-        for j in reversed(rotors):
-            char_val = ord(j[char_val])-97
-            print("Chr:", chr(char_val+97))
+        rotors = move_rotors(rotors, notches) 
 
-        print("\nNext")
+        print("---------")
         for zaxs in rotors:
             print(zaxs)
         print(reflector)
         print("\n")
 
+        print("OG: ", i )
+        char_val = ord(i)-97
+
+        for j in rotors:
+            char_val = ord(j[char_val])-97
+            print("InChr:", chr(char_val+97))
         
+        char_val = ord(reflector[char_val])-97
+        print("ReChR:", chr(char_val+97))
+        
+        for j in reversed(rotors):
+            char_val = ord(j[char_val])-97
+            print("OuChr:", chr(char_val+97))
+
+               
         encoded_message += chr(char_val+97)
-    
+        
+    print("\n")
+
     return encoded_message
 
 def move_rotors(rotors, notches):
@@ -82,5 +86,5 @@ if __name__ == "__main__":
     three_notches = [rotor_notches[choices[0][0]-1], rotor_notches[choices[0][1]-1], rotor_notches[choices[0][2]-1]]
 
     message = input("Enter Message: ").lower()
-    print("\n")
+
     print(encode(three_rotors, choices[1], three_notches, message, reflector_B))
