@@ -1,4 +1,4 @@
-
+#!/usr/bin/env python3
 
 def choose_rotor():
     #one   = int(input("First Rotor: "))
