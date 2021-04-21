@@ -9,6 +9,14 @@ def create_rotors(rotor_strings):
         rotor_dictionaries.append(rotor_finished)
     return rotor_dictionaries
 
+# AS BI EF GJ HX LZ NO PW QT UV
+def plugboard(setting,input_letter):
+    setting = setting.split(" ")
+    for i in setting:
+        if setting[i][0] == input_letter.upper():
+            return setting[i][1].lower()
+
+
 def choose_rotor():
     one   = int(input("First Rotor: "))
     #ptr1  = int(input("Starting offest: "))
