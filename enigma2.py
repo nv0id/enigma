@@ -28,7 +28,7 @@ def encode(rotors_encoding_strings, starting_letters, notches, message, reflecto
 
     #turn rotors to match starting letters.
     for n,i in enumerate(rotor_positions):
-        rotors_encoding_strings[n] = i[starting_letters[n]:]+i[:starting_letters[n]]
+        rotor_positions[n] = i[starting_letters[n]:]+i[:starting_letters[n]]
 
     for i in message:
         rotor_positions = move_rotors(rotor_positions, notches)
@@ -40,8 +40,38 @@ def encode(rotors_encoding_strings, starting_letters, notches, message, reflecto
         print("\n")
 
         print("OG:", i)
+        i = ord(i)-97
+        for n,j in enumerate(rotor_positions):
+            i = j[i]
+            print("IIn:", i)
+            print(rotors_encoding_strings[n])
+            i = rotors_encoding_strings[n][ord(i)-97]
+            print("IIn:", i)
+            i = j.find(i)
+            print("IOu:", i)
+
         
+        i = reflector[i]
+        print("TRe:", i)
+        rotor_positions.reverse()
+        rotors_encoding_strings.reverse()
+        i = ord(i)-97
+        for n,j in enumerate(rotor_positions):
+            i = j[i]
+            print("OIn:", i)
+            i = rotors_encoding_strings[n].find(i)
+            print("OIn:", i)
+            print(chr(i+97))
         
+        rotor_positions.reverse()
+        rotors_encoding_strings.reverse()
+        print(rotor_positions[0])
+        i = rotor_positions[0].find(chr(i+97))
+        print(i)
+
+
+
+        encoded_message += chr(i+97)
 
     """
     Index i and find() alphabet letter.
@@ -49,13 +79,22 @@ def encode(rotors_encoding_strings, starting_letters, notches, message, reflecto
     Find() encoded letter in alphabet string.
     Next rotor. 
     """
-
-
-    encoded_message += chr(char_val+97)
-        
     print("\n")
 
     return encoded_message
+
+def through_rotors(rotors, strings, i):
+    for n,j in enumerate(rotor_positions):
+        i = j[i]
+        print("In:", i)
+        print(rotors_encoding_strings[n])
+        i = rotors_encoding_strings[n][ord(i)-97]
+        print("In:", i)
+        i = j.find(i)
+        print("Ou:", i)
+
+    return i
+
 
 def move_rotors(rotors, notches):
     #move 1st rotors, check for notch. repeat for next 2.
@@ -84,7 +123,7 @@ if __name__ == "__main__":
     three_notches = [rotor_notches[choices[0][0]-1], rotor_notches[choices[0][1]-1], rotor_notches[choices[0][2]-1]]
     starting_letters = choices[2]
     message = input("Enter Message: ").lower()
-
+    print(three_rotors)
     setup(three_rotors, choices[1])
 
     print(encode(three_rotors, starting_letters, three_notches, message, reflector_B))
