@@ -83,17 +83,6 @@ def encode(rotors_encoding_strings, starting_letters, notches, message, reflecto
 
     return encoded_message
 
-def through_rotors(rotors, strings, i):
-    for n,j in enumerate(rotor_positions):
-        i = j[i]
-        print("In:", i)
-        print(rotors_encoding_strings[n])
-        i = rotors_encoding_strings[n][ord(i)-97]
-        print("In:", i)
-        i = j.find(i)
-        print("Ou:", i)
-
-    return i
 
 
 def move_rotors(rotors, notches):
